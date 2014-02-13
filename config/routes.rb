@@ -1,4 +1,12 @@
 MyBlog::Application.routes.draw do
+  get "sessions/new"
+  get "sessions/create"
+  get "sessions/failure"
+
+  get   '/login', :to => 'sessions#new', :as => :login
+  match '/auth/:provider/callback' => 'sessions#create', :via => [:get]
+  match '/auth/failure' => 'sessions#failure', :via => [:get]
+
   devise_for :users
   get "welcome/index"
   # The priority is based upon order of creation: first created -> highest priority.
